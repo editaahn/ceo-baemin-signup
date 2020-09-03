@@ -1,0 +1,363 @@
+/* 공통 */
+* {
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+  letter-spacing: -0.04em;
+  font-size: 16px;
+  list-style: none;
+  border: 0;
+}
+
+body {
+}
+
+input:focus,
+textarea:focus,
+button:focus,
+select:focus {
+  outline: none;
+}
+
+/*input 공통 정의*/
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -o-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid currentcolor;
+  border-radius: 2px;
+  box-sizing: content-box;
+  color: #bbc0cd;
+  padding: 2px;
+}
+
+input[type="checkbox"]:checked {
+  color: #1a7cff;
+  background-color: currentColor;
+}
+
+input[type="checkbox"]::after {
+  background-image: url(/checked.svg);
+  content: "";
+  display: block;
+  height: 18px;
+  width: 18px;
+}
+
+input:disabled {
+}
+
+::placeholder {
+  color: #a6acb9;
+}
+
+/*button 공통스타일 */
+.button {
+  display: inline-block;
+  padding: 14px 0 12px;
+  width: 27%;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 16px;
+  border: 1px solid;
+  box-sizing: border-box;
+  height: 48px;
+  background: #fff;
+  border-color: #1a7cff;
+  color: #1a7cff;
+  cursor: pointer;
+}
+
+.button:disabled {
+  @extend .button;
+  background: #fff;
+  border-color: #ccc;
+  color: #bbc0cd;
+}
+
+//제출
+button[type="submit"] {
+  display: inline-block;
+  padding: 16px 0 14px;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #1a7cff;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 레이아웃 */
+.wrapper {
+  width: 80vw;
+  min-width: 320px;
+  margin: 0 auto;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wrapper > * {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 헤더 */
+.header {
+  margin-bottom: 40px;
+}
+
+.header__h1 {
+  font-size: 0;
+  width: 220px;
+  height: 33px;
+  background: url("/logo-ceo.svg") no-repeat;
+  background-size: 100%;
+}
+
+/* 메인 공통 */
+.main {
+  display: flex;
+  // flex-direction: column;
+}
+
+.form {
+  width: 320px;
+}
+
+.form > * {
+  display: flex;
+  border: none;
+  width: 320px;
+  margin-bottom: 50px;
+}
+
+.mandatory {
+}
+
+.signup-guide {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.input-container--col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 한 row에 여러개의 form element가 들어가는 경우 container로 감싸줌 */
+
+.input-container--row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.input-container--row > span {
+  display: inline-block;
+  width: 8%;
+  line-height: 48px;
+  height: 48px;
+  text-align: center;
+  vertical-align: center;
+}
+
+.input {
+  border: 1px solid #d7dbe6;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.input--fail {
+  @extend .input;
+  border: 1px solid red;
+}
+
+.input__email {
+  @extend .input;
+  width: 46%;
+}
+
+.input__email--fail {
+  @extend .input--fail;
+  width: 46%;
+}
+
+.input__phone {
+  @extend .input;
+  width: 70%;
+}
+
+.input__phone--fail {
+  @extend .input--fail;
+  width: 70%;
+}
+
+.result-message:parent {
+  position: relative;
+  margin-bottom: 30px;
+}
+.result-message {
+  position: relative;
+  top: -8px;
+  width: 100%;
+  font-size: 14px;
+}
+.result-message--fail {
+  @extend .result-message;
+  color: red;
+}
+
+select {
+  @extend .input;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  background: url(/expand-arrow.svg) 95% 50% no-repeat;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.info-list * {
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.1px;
+  color: #898989;
+  font-weight: normal;
+  position: relative;
+  padding-left: 5px;
+}
+
+.info-list > li::before {
+  content: "•";
+  display: inline-block;
+  height: 18px;
+  width: 10px;
+  margin-left: -3px;
+}
+
+/*optional*/
+
+.agree-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.agree-container > * {
+  display: inline-block;
+  font-size: 14px;
+}
+
+.agree-container > label {
+  margin: 0 10px;
+}
+
+.agree-container__label--bold {
+  margin: 0 10px;
+  font-weight: bolder;
+  font-size: 16px;
+}
+
+.agree__detail {
+  color: #898989;
+  margin-left: 35px;
+}
+.agree__detail--row {
+  @extend .agree__detail;
+  margin-left: 0;
+}
+.agree__detail + .agree__detail {
+  margin-left: 10px;
+}
+
+/* 주소 관련 */
+
+.input__zonecode {
+  @extend .input;
+  width: 70%;
+}
+
+.old-address {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.1px;
+  color: #8e929f;
+  font-weight: normal;
+  padding: 1px 4px;
+}
+.old-address__label {
+  @extend .old-address;
+  border: 1px solid #bbc0cd;
+  display: inline-block;
+}
+.old-address__content {
+  @extend .old-address;
+  font-size: 14px;
+}
+
+/* layer 다음주소 */
+
+.layer__layer {
+  display: none;
+  width: 100vw;
+  height: 100vmax;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
+}
+.layer__align {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+.layer__header {
+  width: 360px;
+  height: 47px;
+  background-color: #1a7cff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 47px;
+}
+.layer__title {
+  color: #fff;
+  padding-left: 10px;
+  font-size: 16px;
+}
+.layer__button-close {
+  width: 47px;
+  height: 47px;
+  background: url("/close.svg") no-repeat;
+  background-size: cover;
+  font-size: 0;
+}
