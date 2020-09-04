@@ -10,6 +10,7 @@ const SET_EMAIL2 = 'mandatory/SET_EMAIL2';
 const SET_EMAIL2_EDITABLE = 'mandatory/SET_EMAIL2_EDITABLE';
 const SET_NAME = 'mandatory/SET_NAME';
 const SET_PHONE = 'mandatory/SET_PHONE';
+const SET_PHONE_AUTH_DIGIT = 'mandatory/SET_PHONE_AUTH_DIGIT';
 
 export const setID = createAction(SET_ID, id => id);
 export const setPw = createAction(SET_PW, pw => pw);
@@ -19,6 +20,7 @@ export const setEmail2 = createAction(SET_EMAIL2, addr => addr);
 export const setEmail2Editable = createAction(SET_EMAIL2_EDITABLE, bool => bool);
 export const setName = createAction(SET_NAME, name => name);
 export const setPhone = createAction(SET_PHONE, phone => phone);
+export const setPhoneAuthDigit = createAction(SET_PHONE_AUTH_DIGIT, digit => digit);
 
 const initialState = {
   id: '',
@@ -28,6 +30,7 @@ const initialState = {
   email2: { value: "", editable: false },
   name: '',
   phone: '',
+  phone_auth_digit: null,
 };
 
 const mandatory = handleActions(
@@ -64,6 +67,10 @@ const mandatory = handleActions(
     [SET_PHONE] : (state, action) => ({
       ...state,
       phone: action.payload,
+    }),
+    [SET_PHONE_AUTH_DIGIT] : (state, action) => ({
+      ...state,
+      phone_auth_digit: action.payload,
     }),
   }, initialState
 );
