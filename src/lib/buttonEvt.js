@@ -1,3 +1,10 @@
+// 인증하기 버튼 활성/비활성
+export const setButtonActive = (condition) => {
+  const currentDOM = document.getElementById("button__auth_request");
+  currentDOM.disabled = condition ? false : true;
+};
+
+// 인증하기 버튼 클릭
 export const phoneAuthButtonEvt = (setPhoneAuthDigit) => {
   const authRequestButton = document.getElementById("button__auth_request");
   const authContainer = document.getElementById("auth-container");
@@ -9,6 +16,7 @@ export const phoneAuthButtonEvt = (setPhoneAuthDigit) => {
   alert("인증번호가 전송됐습니다! \n *테스트 인증번호:" + randomDigit);
 };
 
+// 인증번호 입력 후 '확인' 버튼
 export const phoneAuthDoneButtonEvt = (setPhoneAuthResult, validationFn) => {
   const authRequestButton = document.getElementById("button__auth_request");
   const authContainer = document.getElementById("auth-container");
@@ -26,6 +34,7 @@ export const phoneAuthDoneButtonEvt = (setPhoneAuthResult, validationFn) => {
   }
 };
 
+// 제출 버튼
 export const onSubmitEvt = (e) => {
   e.preventDefault();
   // htmlDOM 프로퍼티를 이용해 focus, blur 이벤트 강제 트리거

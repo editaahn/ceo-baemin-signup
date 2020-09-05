@@ -1,19 +1,21 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import Input from "./Input";
 import ResultMessage from "./ResultMessage";
 import SelectEmail from "../lib/SelectEmail";
-import Timer from './Timer';
+import Timer from "./Timer";
 import { setClassName } from "../lib/setClassName";
 import * as actions__value from "../module/mandatoryFormState";
 import * as actions__result from "../module/resultState";
-import * as buttonEvent from "../lib/buttonClickEvt.js";
+import * as buttonEvent from "../lib/buttonEvt";
 import validation from "../lib/validation";
 
 const MandatoryForm = ({
+  //form의 value값 props
   email2,
   password,
   phone_auth_digit,
+  //결과값 props
   result__id,
   result__password,
   result__passwordCheck,
@@ -22,6 +24,7 @@ const MandatoryForm = ({
   result__name,
   result__phone,
   result__phone_auth,
+  //form의 value값을 redux로 넣는 action props
   setID,
   setPw,
   setPwCheck,
@@ -31,6 +34,7 @@ const MandatoryForm = ({
   setName,
   setPhone,
   setPhoneAuthDigit,
+  //각 input의 개별 검증결과를 redux로 넣는 action props
   setIDResult,
   setPwResult,
   setPwCheckResult,
@@ -39,14 +43,11 @@ const MandatoryForm = ({
   setNameResult,
   setPhoneResult,
   setPhoneAuthResult,
+  //타이머 관련 props, actions 
+  timer,
+  setTimerOn,
+  setTime,
 }) => {
-  // 입력값 조건에 따라 활성/비활성되는 버튼 정의
-  const authenticationBtnEl = useRef(null);
-  const setButtonActive = (condition) => {
-    const currentDOM = authenticationBtnEl.current;
-    currentDOM.disabled = condition ? false : true;
-  };
-
   return (
     <fieldset className="mandatory">
       <legend className="signup-guide">필수 정보를 입력해주세요.</legend>
@@ -135,16 +136,17 @@ const MandatoryForm = ({
           guideMessage="휴대폰*"
           setValue={setPhone}
           setResult={(value) => setPhoneResult(validation.PHONE(value))}
-          setButtonActive={setButtonActive}
+          setButtonActive={buttonEvent.setButtonActive}
         />
         <button
           id="button__auth_request"
-          ref={authenticationBtnEl}
           className="button"
           type="button"
           disabled={!result__phone.status}
-          onClick={() => buttonEvent.phoneAuthButtonEvt(setPhoneAuthDigit)}
-        >
+          onClick={() => {
+            buttonEvent.phoneAuthButtonEvt(setPhoneAuthDigit);
+            timer.timerOn ? setTime({min: 0, sec: 10, remainSec: 10}) : setTimerOn(true)
+        }}>
           인증받기
         </button>
         <ResultMessage result={result__phone} />
@@ -160,7 +162,16 @@ const MandatoryForm = ({
           inputType="number"
           guideMessage="인증번호 6자리 입력"
         />
-        { phone_auth_digit && <Timer /> }
+        {phone_auth_digit && timer.timerOn && (
+          <Timer
+            setPhoneAuthDigit={setPhoneAuthDigit}
+            setPhoneAuthResult={setPhoneAuthResult}
+            timer={timer}
+            setTimerOn={setTimerOn}
+            setTime={setTime}
+            result__phone_auth={result__phone_auth}
+            />
+        )}
         <button
           className="button"
           type="button"

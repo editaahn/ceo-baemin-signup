@@ -4,7 +4,7 @@ import MandatoryForm from "./components/MandatoryForm";
 import OptionalForm from "./components/OptionalForm";
 import AgreeForm from "./components/AgreeForm";
 import SubmitButton from "./components/SubmitButton";
-import * as buttonEvent from "./lib/buttonClickEvt.js";
+import * as buttonEvent from "./lib/buttonEvt";
 import "./style/style.scss";
 
 const App = () => {
