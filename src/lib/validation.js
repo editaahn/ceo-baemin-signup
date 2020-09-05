@@ -70,6 +70,11 @@ const validation = {
         : result(false, "휴대폰 번호를 다시 입력해주세요.")
       : result(false, "휴대폰 번호를 입력해주세요.");
   },
+  PHONE_AUTH: (phone_auth_digit) => {
+    return document.getElementById("input__auth").value * 1 === phone_auth_digit
+      ? result(true, "")
+      : result(false, "전송된 인증번호와 다릅니다.");
+  },
   // optional
   DETAIL_ADDRESS: (address) => {
     return address ? result(true, "") : result(false, "주소를 입력해주세요.");

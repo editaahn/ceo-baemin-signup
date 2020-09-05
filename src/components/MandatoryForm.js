@@ -1,16 +1,21 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import * as actions__value from "../module/mandatoryFormState";
-import * as actions__result from "../module/resultState";
-import validation from "../lib/validation";
 import Input from "./Input";
 import ResultMessage from "./ResultMessage";
 import SelectEmail from "../lib/SelectEmail";
+import Timer from "./Timer";
 import { setClassName } from "../lib/setClassName";
+import * as actions__value from "../module/mandatoryFormState";
+import * as actions__result from "../module/resultState";
+import * as buttonEvent from "../lib/buttonEvt";
+import validation from "../lib/validation";
 
 const MandatoryForm = ({
+  //form의 value값 props
   email2,
   password,
+  phone_auth_digit,
+  //결과값 props
   result__id,
   result__password,
   result__passwordCheck,
@@ -18,41 +23,40 @@ const MandatoryForm = ({
   result__email2,
   result__name,
   result__phone,
+  result__phone_auth,
+  //form의 value값을 redux로 넣는 action props
   setID,
-  setIDMessage,
   setPw,
-  setPwMessage,
   setPwCheck,
-  setPwCheckMessage,
   setEmail1,
-  setEmail1Message,
   setEmail2,
-  setEmail2Message,
   setEmail2Editable,
   setName,
-  setNameMessage,
   setPhone,
-  setPhoneMessage
+  setPhoneAuthDigit,
+  //각 input의 개별 검증결과를 redux로 넣는 action props
+  setIDResult,
+  setPwResult,
+  setPwCheckResult,
+  setEmail1Result,
+  setEmail2Result,
+  setNameResult,
+  setPhoneResult,
+  setPhoneAuthResult,
+  //타이머 관련 props, actions 
+  timer,
+  setTimerOn,
+  setTime,
 }) => {
-
-  // 입력값 조건에 따라 활성/비활성되는 버튼 정의
-  const certificationBtnEl = useRef(null);
-  const setButtonActive = (condition) => {
-    const currentDOM = certificationBtnEl.current;
-    currentDOM.disabled = condition ? false : true
-  };
-
   return (
     <fieldset className="mandatory">
-      <legend className="signup-guide">
-        필수 정보를 입력해주세요.
-      </legend>
+      <legend className="signup-guide">필수 정보를 입력해주세요.</legend>
       <div className="input-container--col">
         <Input
           className={setClassName(result__id)}
           guideMessage="아이디* (4~20자)"
           setValue={setID}
-          setMessage={(value) => setIDMessage(validation.ID(value))}
+          setResult={(value) => setIDResult(validation.ID(value))}
         />
         <ResultMessage result={result__id} />
       </div>
@@ -62,7 +66,7 @@ const MandatoryForm = ({
           inputType="password"
           guideMessage="비밀번호* (영문+숫자, 8~20자)"
           setValue={setPw}
-          setMessage={(value) => setPwMessage(validation.PW(value))}
+          setResult={(value) => setPwResult(validation.PW(value))}
         />
         <ResultMessage result={result__password} />
       </div>
@@ -72,8 +76,8 @@ const MandatoryForm = ({
           inputType="password"
           guideMessage="비밀번호 재확인*"
           setValue={setPwCheck}
-          setMessage={(value) =>
-            setPwCheckMessage(validation.PW_CHECK(value, password))
+          setResult={(value) =>
+            setPwCheckResult(validation.PW_CHECK(value, password))
           }
         />
         <ResultMessage result={result__passwordCheck} />
@@ -87,9 +91,7 @@ const MandatoryForm = ({
           )}
           guideMessage="이메일 앞자리*"
           setValue={setEmail1}
-          setMessage={(value) =>
-            setEmail1Message(validation.EMAIL1(value))
-          }
+          setResult={(value) => setEmail1Result(validation.EMAIL1(value))}
         />
         <span>@</span>
         <Input
@@ -100,9 +102,7 @@ const MandatoryForm = ({
           )}
           guideMessage="이메일 뒷자리*"
           setValue={setEmail2}
-          setMessage={(value) =>
-            setEmail2Message(validation.EMAIL2(value))
-          }
+          setResult={(value) => setEmail2Result(validation.EMAIL2(value))}
           isReadOnly={!email2.editable}
           // value={email2.value}
           // editable={email2.editable}
@@ -120,12 +120,13 @@ const MandatoryForm = ({
           className={setClassName(result__name)}
           guideMessage="이름*"
           setValue={setName}
-          setMessage={(value) => setNameMessage(validation.NAME(value))}
+          setResult={(value) => setNameResult(validation.NAME(value))}
         />
         <ResultMessage result={result__name} />
       </div>
       <div className="input-container--row">
         <Input
+          id="input__phone"
           className={setClassName(
             result__phone,
             "input__phone",
@@ -134,22 +135,61 @@ const MandatoryForm = ({
           inputType="number"
           guideMessage="휴대폰*"
           setValue={setPhone}
-          setMessage={(value) => setPhoneMessage(validation.PHONE(value))}
-          setButtonActive={setButtonActive}
+          setResult={(value) => setPhoneResult(validation.PHONE(value))}
+          setButtonActive={buttonEvent.setButtonActive}
         />
-        <button 
-          ref={certificationBtnEl}
-          className="button" 
-          disabled
-        >
+        <button
+          id="button__auth_request"
+          className="button"
+          type="button"
+          disabled={!result__phone.status}
+          onClick={() => {
+            buttonEvent.phoneAuthButtonEvt(setPhoneAuthDigit);
+            timer.timerOn ? setTime({min: 0, sec: 10, remainSec: 10}) : setTimerOn(true)
+        }}>
           인증받기
         </button>
         <ResultMessage result={result__phone} />
+      </div>
+      <div className="input-container--row" id="auth-container">
+        <Input
+          id="input__auth"
+          className={setClassName(
+            result__phone_auth,
+            "input__auth",
+            "input__auth--fail"
+          )}
+          inputType="number"
+          guideMessage="인증번호 6자리 입력"
+        />
+        {phone_auth_digit && timer.timerOn && (
+          <Timer
+            setPhoneAuthDigit={setPhoneAuthDigit}
+            setPhoneAuthResult={setPhoneAuthResult}
+            timer={timer}
+            setTimerOn={setTimerOn}
+            setTime={setTime}
+            result__phone_auth={result__phone_auth}
+            />
+        )}
+        <button
+          className="button"
+          type="button"
+          onClick={() =>
+            buttonEvent.phoneAuthDoneButtonEvt(
+              setPhoneAuthResult,
+              validation.PHONE_AUTH(phone_auth_digit)
+            )
+          }
+        >
+          확인
+        </button>
+        <ResultMessage result={result__phone_auth} />
+      </div>
       <ul className="info-list">
         <li>인증번호 전송은 통신사에 따라 최대 1분까지 소요될 수 있습니다.</li>
         <li>인증번호가 도착하지 않을 경우 '인증번호 재전송'을 눌러주세요.</li>
       </ul>
-      </div>
     </fieldset>
   );
 };

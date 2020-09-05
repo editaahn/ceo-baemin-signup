@@ -7,7 +7,7 @@ const AgreementHandler = ({ isChecked, evt, setAllAgreement}) => {
       <Checkbox
         evt={evt}
         term="전체 약관에 동의합니다"
-        labelClass="agree__label--bold"
+        labelClass="agree-container__label--bold"
         isChecked={isChecked}
         setAllAgreement={setAllAgreement}
       />

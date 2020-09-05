@@ -4,13 +4,15 @@ const Input = ({
   inputType,
   guideMessage,
   setValue,
-  setMessage,
+  setResult,
   isReadOnly,
   isDisabled,
   className,
   value,
   editable,
   setButtonActive,
+  randomDigit,
+  id,
 }) => {
   const inputEl = useRef(null);
   return (
@@ -21,13 +23,14 @@ const Input = ({
         type={inputType || "text"}
         placeholder={guideMessage}
         onBlur={(e, optionalParam) => {
-          setValue && setValue(e.target.value);
-          setMessage && setMessage(e.target.value, optionalParam);
+          setValue && setValue(randomDigit || e.target.value);
+          setResult && setResult(e.target.value, optionalParam);
         }}
         readOnly={isReadOnly}
         disabled={isDisabled}
         value={value}
         onChange={e => setButtonActive && setButtonActive(e.target.value.length >= 10)}
+        id={id}
       />
     </React.Fragment>
   );

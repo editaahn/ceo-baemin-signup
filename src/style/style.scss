@@ -75,7 +75,6 @@ input:disabled {
   background: #fff;
   border-color: #1a7cff;
   color: #1a7cff;
-  cursor: pointer;
 }
 
 .button:disabled {
@@ -198,12 +197,12 @@ button[type="submit"] {
   width: 46%;
 }
 
-.input__phone {
+.input__phone, .input__auth {
   @extend .input;
   width: 70%;
 }
 
-.input__phone--fail {
+.input__phone--fail, .input__auth--fail {
   @extend .input--fail;
   width: 70%;
 }
@@ -319,12 +318,10 @@ select::-ms-expand {
   font-size: 14px;
 }
 
-/* layer 다음주소 */
-
-.layer__layer {
+.layer__background {
   display: none;
   width: 100vw;
-  height: 100vmax;
+  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
@@ -360,4 +357,27 @@ select::-ms-expand {
   background: url("/close.svg") no-repeat;
   background-size: cover;
   font-size: 0;
+}
+
+
+/* 휴대폰 인증 */
+
+#auth-container {
+  display: none;
+  position: relative;
+}
+
+.button__auth--done:disabled {
+  @extend .button;
+  background: #f8f9fa;
+  border-color: #f8f9fa;
+  color: #bbc0cd;
+}
+
+.timer {
+  position: absolute;
+  left: 180px;
+  top: 14px;
+  font-size: 14px;
+  color: #f52926;
 }

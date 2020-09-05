@@ -68,7 +68,7 @@ const OptionalForm = ({
       </div>
       <OldAddress address={old_address} />
 
-      <div className="layer__layer" ref={layerEl}>
+      <div className="layer__background" ref={layerEl}>
         <div className="layer__align" >
           <LayerContents
             setAddress={setAddress}
