@@ -1,6 +1,6 @@
 import React from "react";
-import Postcode from "../lib/Postcode";
-import CloseLayer from "../lib/CloseLayer";
+import Postcode from "./Postcode";
+import CloseLayer from "./CloseLayer";
 
 const LayerContents = ({ setAddress, closeAddressLayer}) => {
   return (
