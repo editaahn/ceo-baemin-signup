@@ -1,8 +1,8 @@
 import React from "react";
-import AgreementHandler from "./AgreementHandler.js";
-import Checkbox from "./Checkbox";
+import AgreementHandler from "./AgreementHandler"
+import Checkbox from "../common/Checkbox";
 import { connect } from "react-redux";
-import * as actions from "../module/agreeFormState";
+import * as actions from "../../redux-module/agreeFormState";
 
 const AgreeForm = ({
   agree__handler,

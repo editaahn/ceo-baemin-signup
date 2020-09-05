@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from 'react';
 import { connect } from "react-redux";
-import Input from "./Input";
-import ResultMessage from "./ResultMessage";
-import SelectEmail from "../lib/SelectEmail";
+import Input from "../common/Input";
+import ResultMessage from "../common/ResultMessage";
+import SelectEmail from "./SelectEmail";
 import Timer from "./Timer";
-import { setClassName } from "../lib/setClassName";
-import * as actions__value from "../module/mandatoryFormState";
-import * as actions__result from "../module/resultState";
-import * as buttonEvent from "../lib/buttonEvt";
-import validation from "../lib/validation";
+import { setClassName } from "../../lib/setClassName";
+import * as actions__value from "../../redux-module/mandatoryFormState";
+import * as actions__result from "../../redux-module/resultState";
+import * as buttonEvent from "../../lib/buttonEvt";
+import validation from "../../lib/validation";
 
 const MandatoryForm = ({
   //form의 value값 props

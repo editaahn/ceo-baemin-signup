@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "./components/Header";
-import MandatoryForm from "./components/MandatoryForm";
-import OptionalForm from "./components/OptionalForm";
-import AgreeForm from "./components/AgreeForm";
+import MandatoryForm from "./components/mandatory/MandatoryForm";
+import OptionalForm from "./components/optional/OptionalForm";
+import AgreeForm from "./components/agree/AgreeForm";
 import SubmitButton from "./components/SubmitButton";
 import * as buttonEvent from "./lib/buttonEvt";
 import "./style/style.scss";

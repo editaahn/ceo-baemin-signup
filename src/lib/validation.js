@@ -4,7 +4,6 @@ const result = (status, msg) => ({
 });
 
 const validation = {
-  // mandatory
   ID: (id) => {
     if (!id) return result(false, "아이디를 입력해주세요.");
     else if (id.length >= 4 && id.length <= 20 && /[a-z]\d|\d[a-z]/.test(id))
@@ -74,10 +73,6 @@ const validation = {
     return document.getElementById("input__auth").value * 1 === phone_auth_digit
       ? result(true, "")
       : result(false, "전송된 인증번호와 다릅니다.");
-  },
-  // optional
-  DETAIL_ADDRESS: (address) => {
-    return address ? result(true, "") : result(false, "주소를 입력해주세요.");
   },
 };
 
