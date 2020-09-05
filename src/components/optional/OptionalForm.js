@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
 import { connect } from "react-redux";
-import * as actions__value from "../module/optionalFormState";
-import * as actions__result from "../module/resultState";
-import validation from "../lib/validation";
+import * as actions__value from "../../redux-module/optionalFormState";
+import * as actions__result from "../../redux-module/resultState";
 import AddressHandler from "./AddressHandler";
-import Input from "./Input";
-import ResultMessage from "./ResultMessage";
+import Input from "../common/Input";
+import ResultMessage from "../common/ResultMessage";
 import LayerContents from "./LayerContents";
 import OldAddress from "./OldAddress";
 

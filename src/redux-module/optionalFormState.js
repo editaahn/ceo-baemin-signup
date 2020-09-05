@@ -30,7 +30,7 @@ const optional = handleActions(
     }),
     [SET_DETAIL_ADDRESS] : (state, action) => ({
       ...state,
-      detail_address: action.payload.detail_address,
+      detail_address: action.payload,
     }),
   }, initialState
 )
