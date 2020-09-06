@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 const Input = ({
   inputType,
@@ -8,17 +8,14 @@ const Input = ({
   isReadOnly,
   isDisabled,
   className,
-  value,
-  editable,
   setButtonActive,
   randomDigit,
   id,
 }) => {
-  const inputEl = useRef(null);
   return (
     <React.Fragment>
       <input
-        ref={inputEl}
+        id={id}
         className={className || "input"}
         type={inputType || "text"}
         placeholder={guideMessage}
@@ -28,9 +25,7 @@ const Input = ({
         }}
         readOnly={isReadOnly}
         disabled={isDisabled}
-        value={value}
         onChange={e => setButtonActive && setButtonActive(e.target.value.length >= 10)}
-        id={id}
       />
     </React.Fragment>
   );

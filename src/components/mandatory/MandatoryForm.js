@@ -95,6 +95,7 @@ const MandatoryForm = ({
         />
         <span>@</span>
         <Input
+          id="input__email"
           className={setClassName(
             result__email2,
             "input__email",
@@ -104,8 +105,7 @@ const MandatoryForm = ({
           setValue={setEmail2}
           setResult={(value) => setEmail2Result(validation.EMAIL2(value))}
           isReadOnly={!email2.editable}
-          // value={email2.value}
-          // editable={email2.editable}
+          isDisabled={!email2.editable}
         />
         <ResultMessage
           result={result__email1.message ? result__email1 : result__email2}
@@ -114,6 +114,7 @@ const MandatoryForm = ({
       <SelectEmail
         setEmail2={setEmail2}
         setEmail2Editable={setEmail2Editable}
+        setEmail2Result={setEmail2Result}
       />
       <div className="input-container--col">
         <Input
