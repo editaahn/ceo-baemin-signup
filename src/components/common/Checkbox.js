@@ -1,9 +1,10 @@
 import React from "react";
 
-const Checkbox = ({ name, evt, term, labelClass, isChecked, }) => {
+const Checkbox = ({ name, evt, term, labelClass, isChecked, ID }) => {
   return (
     <React.Fragment>
       <input
+        id={ID}
         className="agree__checkbox"
         type="checkbox"
         name={name || null}

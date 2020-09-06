@@ -24,6 +24,7 @@ const AgreeForm = ({
       />
       <div className="agree-container">
         <Checkbox
+          ID="term__mandatory"
           name="term__mandatory"
           evt={() => setAgreeMandatory(!agree__mandatory)}
           term="필수 항목에 동의합니다."

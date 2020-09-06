@@ -3,6 +3,9 @@ import DaumPostcode from "react-daum-postcode";
 
 const Postcode = ({ setAddress, closeAddressLayer }) => {
   const handleComplete = (data) => {
+    const zonecodeDOM = document.getElementById("input__zonecode");
+    const addressDOM = document.getElementById("input__address");
+
     let fullAddress = data.address;
     let extraAddress = "";
 
@@ -18,11 +21,15 @@ const Postcode = ({ setAddress, closeAddressLayer }) => {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
 
+    zonecodeDOM.value = data.zonecode;
+    addressDOM.value = fullAddress;
+
     setAddress({
       zonecode: data.zonecode,
       address: fullAddress,
       old_address: data.jibunAddress || data.autuJibunAddress || '',
     });
+    
     closeAddressLayer();
   };
 

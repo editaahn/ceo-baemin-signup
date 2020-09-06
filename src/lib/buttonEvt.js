@@ -35,11 +35,23 @@ export const phoneAuthDoneButtonEvt = (setPhoneAuthResult, validationFn) => {
 };
 
 // 제출 버튼
-export const onSubmitEvt = (e) => {
+export const onSubmitEvt = (e, toast, result, data) => {
   e.preventDefault();
-  // htmlDOM 프로퍼티를 이용해 focus, blur 이벤트 강제 트리거
-  Array.from(document.getElementsByTagName("INPUT")).forEach((v) => {
-    v.focus();
-    v.blur();
-  });
+
+  console.log(Object.entries(result))
+  const isValid = Object.entries(result).every(
+    (field) => field[1].status
+  );
+  const isMandatoryChecked = data.agree__mandatory;
+
+  !isValid &&
+    // htmlDOM 프로퍼티를 이용해 focus, blur 이벤트 강제 트리거
+    Array.from(document.getElementsByTagName("INPUT")).forEach((v) => {
+      v.focus();
+      v.blur();
+    });
+  
+  !isMandatoryChecked && toast("회원가입을 위해 필수항목에 동의해주세요.");
+
+  isValid && isMandatoryChecked && alert("가입이 정상 완료되었습니다.");
 };
