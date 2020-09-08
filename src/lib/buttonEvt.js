@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // 인증하기 버튼 활성/비활성
 export const setButtonActive = (condition) => {
   const currentDOM = document.getElementById("button__auth_request");
@@ -35,14 +37,11 @@ export const phoneAuthDoneButtonEvt = (setPhoneAuthResult, validationFn) => {
 };
 
 // 제출 버튼
-export const onSubmitEvt = (e, toast, result, data) => {
+export const onSubmitEvt = (e, toast, result, requestData) => {
   e.preventDefault();
 
-  console.log(Object.entries(result))
-  const isValid = Object.entries(result).every(
-    (field) => field[1].status
-  );
-  const isMandatoryChecked = data.agree__mandatory;
+  const isValid = Object.entries(result).every((field) => field[1].status);
+  const isMandatoryChecked = requestData.agree__mandatory;
 
   !isValid &&
     // htmlDOM 프로퍼티를 이용해 focus, blur 이벤트 강제 트리거
@@ -50,8 +49,22 @@ export const onSubmitEvt = (e, toast, result, data) => {
       v.focus();
       v.blur();
     });
-  
+
   !isMandatoryChecked && toast("회원가입을 위해 필수항목에 동의해주세요.");
 
-  isValid && isMandatoryChecked && alert("가입이 정상 완료되었습니다.");
+  const postRegister = async () => {
+    try {
+      const fetchResponse = await axios.post(`/sign-up/register`,requestData);
+      console.log(fetchResponse.data)
+      const { message, registered } = fetchResponse.data;
+      alert(message);
+      registered === true && window.location.reload();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  isValid &&
+    isMandatoryChecked &&
+    postRegister();
 };

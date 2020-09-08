@@ -5,10 +5,13 @@ const result = (status, msg) => ({
 
 const validation = {
   ID: (id) => {
+    const isRightID =
+      id.length >= 4 && id.length <= 20 && /[a-z]\d|\d[a-z]/.test(id);
+
     if (!id) return result(false, "아이디를 입력해주세요.");
-    else if (id.length >= 4 && id.length <= 20 && /[a-z]\d|\d[a-z]/.test(id))
+    else if (isRightID)
       return result(true, "입력하신 아이디로 사용이 가능합니다.");
-    else
+    else if (!isRightID)
       return result(
         false,
         "아이디는 영문과 숫자로 4자~20자 사이로 입력해주세요."

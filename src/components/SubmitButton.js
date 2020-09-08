@@ -8,10 +8,8 @@ const SubmitButton = ({mandatory, optional, agree, result}) => {
   const formResult = result;
   const formData = {
     id: mandatory.id,
-    email1: mandatory.email1,
-    email2: mandatory.email2.value,
+    email: mandatory.email1 + '@' + mandatory.email2.value,
     password: mandatory.password,
-    passwordCheck: mandatory.passwordCheck,
     name: mandatory.name,
     phone: mandatory.phone,
     address: optional.address,
@@ -21,7 +19,7 @@ const SubmitButton = ({mandatory, optional, agree, result}) => {
     agree__mandatory: agree.agree__mandatory,
     agree__optional: agree.agree__optional,
   };
-  
+
   return (
     <React.Fragment>
       <button type="submit" onClick={(e) => onSubmitEvt(e, toast, formResult, formData)}>
