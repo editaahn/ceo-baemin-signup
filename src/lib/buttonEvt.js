@@ -54,8 +54,7 @@ export const onSubmitEvt = (e, toast, result, requestData) => {
 
   const postRegister = async () => {
     try {
-      const fetchResponse = await axios.post(`/sign-up/register`,requestData);
-      console.log(fetchResponse.data)
+      const fetchResponse = await axios.post('sign-up/register',requestData);
       const { message, registered } = fetchResponse.data;
       alert(message);
       registered === true && window.location.reload();

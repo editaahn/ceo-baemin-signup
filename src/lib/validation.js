@@ -4,18 +4,22 @@ const result = (status, msg) => ({
 });
 
 const validation = {
-  ID: (id) => {
+  ID: (id, idDBCheckFn) => {
     const isRightID =
       id.length >= 4 && id.length <= 20 && /[a-z]\d|\d[a-z]/.test(id);
+    // const isDuplicatedID = idDBCheckFn(id);
+    idDBCheckFn(id);
 
+    // if (isDuplicatedID.status === false)
+    //   return result(isDuplicatedID.status, "이미 등록된 아이디입니다.");
     if (!id) return result(false, "아이디를 입력해주세요.");
-    else if (isRightID)
-      return result(true, "입력하신 아이디로 사용이 가능합니다.");
     else if (!isRightID)
       return result(
         false,
         "아이디는 영문과 숫자로 4자~20자 사이로 입력해주세요."
       );
+    else if (isRightID)
+      return result(true, "입력하신 아이디로 사용이 가능합니다.");
   },
   PW: (pw) => {
     if (!pw) return result(false, "비밀번호를 입력해주세요.");

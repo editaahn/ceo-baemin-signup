@@ -16,14 +16,19 @@ def create_app(test_config=None):  # 1)
         app.config['DB_URL'], encoding='utf-8', max_overflow=0)  # 3)c
     app.database = database  # 4)
 
-    @app.route("/sign-up/id/<user_id>", methods=['GET'])
-    def send_id(user_id):
+    @app.route("/sign-up/id", methods=['POST'])
+    def send_id():
+        user_id = request.json
         row = app.database.execute(text("""
-            SELECT member.user_id FROM member
-            WHERE member.user_id = :user_id
-        """), {'user_id': user_id}).fetchone()
+            SELECT m.user_id 
+            FROM member m
+            WHERE m.user_id = :id
+        """), user_id).fetchone()
         print(row)
-        return jsonify({'valid': False}) if row else jsonify({'valid': True})
+        return jsonify({
+            'status': False,
+            'message': '이미 등록된 아이디입니다.'
+        }) if row else None
 
     @app.route("/sign-up/register", methods=['POST'])
     def sign_up():
