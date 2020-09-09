@@ -4,16 +4,14 @@ import MandatoryForm from "./components/mandatory/MandatoryForm";
 import OptionalForm from "./components/optional/OptionalForm";
 import AgreeForm from "./components/agree/AgreeForm";
 import SubmitButton from "./components/SubmitButton";
-import * as buttonEvent from "./lib/buttonEvt";
 import "./style/style.scss";
 
 const App = () => {
-
   return (
     <div className="wrapper">
       <Header />
       <main className="main">
-        <form className="form" onSubmit={buttonEvent.onSubmitEvt}>
+        <form className="form">
           <MandatoryForm />
           <OptionalForm />
           <AgreeForm />

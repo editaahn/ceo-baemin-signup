@@ -32,11 +32,11 @@ const OptionalForm = ({
       <AddressHandler setEditable={setEditable} />
       <div className="input-container--row">
         <Input
+          id="input__zonecode"
           className="input__zonecode"
           guideMessage="우편번호"
           isReadOnly={true}
           isDisabled={!editable}
-          value={zonecode}
         />
         <button
           className="button"
@@ -51,10 +51,10 @@ const OptionalForm = ({
       </div>
       <div className="input-container--col">
         <Input
+          id="input__address"
           guideMessage="주소"
           isReadOnly={true}
           isDisabled={!editable}
-          value={address}
         />
       </div>
       <div className="input-container--col">

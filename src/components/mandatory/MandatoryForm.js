@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { connect } from "react-redux";
 import Input from "../common/Input";
 import ResultMessage from "../common/ResultMessage";
@@ -43,10 +43,12 @@ const MandatoryForm = ({
   setNameResult,
   setPhoneResult,
   setPhoneAuthResult,
-  //타이머 관련 props, actions 
+  //타이머 관련 props, actions
   timer,
   setTimerOn,
   setTime,
+  //ID 중복체크
+  checkIDDuplicated,
 }) => {
   return (
     <fieldset className="mandatory">
@@ -56,7 +58,11 @@ const MandatoryForm = ({
           className={setClassName(result__id)}
           guideMessage="아이디* (4~20자)"
           setValue={setID}
-          setResult={(value) => setIDResult(validation.ID(value))}
+          setResult={(value) => {
+            setIDResult(
+              validation.ID( value, checkIDDuplicated ) // parameter: 인풋에 입력된 ID, 중복체크 액션 생성 함수
+            );
+          }}
         />
         <ResultMessage result={result__id} />
       </div>
@@ -146,8 +152,11 @@ const MandatoryForm = ({
           disabled={!result__phone.status}
           onClick={() => {
             buttonEvent.phoneAuthButtonEvt(setPhoneAuthDigit);
-            timer.timerOn ? setTime({min: 0, sec: 10, remainSec: 10}) : setTimerOn(true)
-        }}>
+            timer.timerOn
+              ? setTime({ min: 0, sec: 10, remainSec: 10 })
+              : setTimerOn(true);
+          }}
+        >
           인증받기
         </button>
         <ResultMessage result={result__phone} />
@@ -171,7 +180,7 @@ const MandatoryForm = ({
             setTimerOn={setTimerOn}
             setTime={setTime}
             result__phone_auth={result__phone_auth}
-            />
+          />
         )}
         <button
           className="button"
