@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const SET_ID_RESULT = 'mandatory/SET_ID_RESULT';
 const SET_PW_RESULT = 'mandatory/SET_PW_RESULT';
-const SET_PW_CHECK_RESULT = 'mandatory/SET_PW_CHECK_RESULT';
+const SET_PW_TWICE_RESULT = 'mandatory/SET_PW_TWICE_RESULT';
 const SET_EMAIL1_RESULT = 'mandatory/SET_EMAIL1_RESULT';
 const SET_EMAIL2_RESULT = 'mandatory/SET_EMAIL2_RESULT';
 const SET_NAME_RESULT = 'mandatory/SET_NAME_RESULT';
@@ -19,7 +19,7 @@ const CHECK_ID_DUPLICATED_FAILURE = "mandatory/CHECK_ID_DUPLICATED_FAILURE";
 
 export const setIDResult = createAction(SET_ID_RESULT, result => result);
 export const setPwResult = createAction(SET_PW_RESULT, result => result);
-export const setPwCheckResult = createAction(SET_PW_CHECK_RESULT, result => result);
+export const setPwTwiceResult = createAction(SET_PW_TWICE_RESULT, result => result);
 export const setEmail1Result = createAction(SET_EMAIL1_RESULT, result => result);
 export const setEmail2Result = createAction(SET_EMAIL2_RESULT, result => result);
 export const setNameResult = createAction(SET_NAME_RESULT, result => result);
@@ -45,7 +45,7 @@ export const checkIDDuplicated = id => async dispatch => {
 const initialState = {
   result__id: { status: null, message: "", id_loading: false, },
   result__password: { status: null, message: "" },
-  result__passwordCheck: { status: null, message: "" },
+  result__passwordTwice: { status: null, message: "" },
   result__email1: { status: null, message: "" },
   result__email2: { status: null, message: "" },
   result__name: { status: null, message: "" },
@@ -65,9 +65,9 @@ const result = handleActions(
       ...state,
       result__password: action.payload,
     }),
-    [SET_PW_CHECK_RESULT]: (state, action) => ({
+    [SET_PW_TWICE_RESULT]: (state, action) => ({
       ...state,
-      result__passwordCheck: action.payload,
+      result__passwordTwice: action.payload,
     }),
     [SET_EMAIL1_RESULT]: (state, action) => ({
       ...state,

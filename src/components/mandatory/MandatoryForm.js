@@ -18,7 +18,7 @@ const MandatoryForm = ({
   //결과값 props
   result__id,
   result__password,
-  result__passwordCheck,
+  result__passwordTwice,
   result__email1,
   result__email2,
   result__name,
@@ -27,7 +27,7 @@ const MandatoryForm = ({
   //form의 value값을 redux로 넣는 action props
   setID,
   setPw,
-  setPwCheck,
+  setPwTwice,
   setEmail1,
   setEmail2,
   setEmail2Editable,
@@ -37,7 +37,7 @@ const MandatoryForm = ({
   //각 input의 개별 검증결과를 redux로 넣는 action props
   setIDResult,
   setPwResult,
-  setPwCheckResult,
+  setPwTwiceResult,
   setEmail1Result,
   setEmail2Result,
   setNameResult,
@@ -78,15 +78,15 @@ const MandatoryForm = ({
       </div>
       <div className="input-container--col">
         <Input
-          className={setClassName(result__passwordCheck)}
+          className={setClassName(result__passwordTwice)}
           inputType="password"
           guideMessage="비밀번호 재확인*"
-          setValue={setPwCheck}
+          setValue={setPwTwice}
           setResult={(value) =>
-            setPwCheckResult(validation.PW_CHECK(value, password))
+            setPwTwiceResult(validation.PW_TWICE(value, password))
           }
         />
-        <ResultMessage result={result__passwordCheck} />
+        <ResultMessage result={result__passwordTwice} />
       </div>
       <div className="input-container--row">
         <Input

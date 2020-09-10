@@ -4,7 +4,7 @@ import { createAction, handleActions } from "redux-actions";
 
 const SET_ID = "mandatory/SET_ID";
 const SET_PW = "mandatory/SET_PW";
-const SET_PW_CHECK = "mandatory/SET_PW_CHECK";
+const SET_PW_TWICE = "mandatory/SET_PW_TWICE";
 const SET_EMAIL1 = "mandatory/SET_EMAIL1";
 const SET_EMAIL2 = "mandatory/SET_EMAIL2";
 const SET_EMAIL2_EDITABLE = "mandatory/SET_EMAIL2_EDITABLE";
@@ -16,7 +16,7 @@ const SET_TIME = "mandatory/SET_TIME";
 
 export const setID = createAction(SET_ID, (id) => id);
 export const setPw = createAction(SET_PW, (pw) => pw);
-export const setPwCheck = createAction(SET_PW_CHECK, (pw) => pw);
+export const setPwTwice = createAction(SET_PW_TWICE, (pw) => pw);
 export const setEmail1 = createAction(SET_EMAIL1, (addr) => addr);
 export const setEmail2 = createAction(SET_EMAIL2, (addr) => addr);
 export const setEmail2Editable = createAction(SET_EMAIL2_EDITABLE, (bool) => bool);
@@ -29,7 +29,7 @@ export const setTime = createAction(SET_TIME, (time) => time);
 const initialState = {
   id: "",
   password: "",
-  passwordCheck: "",
+  passwordTwice: "",
   email1: "",
   email2: { value: "", editable: false },
   name: "",
@@ -54,9 +54,9 @@ const mandatory = handleActions(
       ...state,
       password: action.payload,
     }),
-    [SET_PW_CHECK]: (state, action) => ({
+    [SET_PW_TWICE]: (state, action) => ({
       ...state,
-      passwordCheck: action.payload,
+      passwordTwice: action.payload,
     }),
     [SET_EMAIL1]: (state, action) => ({
       ...state,
